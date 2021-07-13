@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"mongShop/global"
+	"mongShop/model"
 	"mongShop/model/request"
 	"mongShop/model/response"
 	"mongShop/service"

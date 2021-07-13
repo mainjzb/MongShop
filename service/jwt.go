@@ -4,6 +4,7 @@ import (
 	"errors"
 	"gorm.io/gorm"
 	"mongShop/global"
+	"mongShop/model"
 	"time"
 )
 
