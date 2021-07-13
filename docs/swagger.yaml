@@ -1,0 +1,33 @@
+basePath: /api/v1
+host: localhost:8080
+info:
+  contact: {}
+  description: this is goweb server.
+  title: goweb project
+  version: "1.0"
+paths:
+  /hello:
+    get:
+      description: Hello接口
+      responses:
+        "200":
+          description: '{"message":"success"}'
+          schema:
+            type: string
+      summary: Hello接口
+      tags:
+      - 用户信息
+  /message:
+    get:
+      consumes:
+      - application/json
+      description: get all messages
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            type: string
+      summary: 获取消息列表数据
+swagger: "2.0"
