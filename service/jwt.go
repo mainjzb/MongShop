@@ -3,6 +3,7 @@ package service
 import (
 	"errors"
 	"gorm.io/gorm"
+	"mongShop/config"
 	"mongShop/global"
 	"mongShop/model"
 	"time"
@@ -50,7 +51,7 @@ func GetRedisJWT(userName string) (err error, redisJWT string) {
 
 func SetRedisJWT(jwt string, userName string) (err error) {
 	// 此处过期时间等于jwt过期时间
-	timer := time.Duration(global.GVA_CONFIG.JWT.ExpiresTime) * time.Second
+	timer := time.Duration(config.GVA_CONFIG.JWT.ExpiresTime) * time.Second
 	err = global.GVA_REDIS.Set(userName, jwt, timer).Err()
 	return err
 }

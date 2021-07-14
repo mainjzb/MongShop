@@ -5,6 +5,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+	"mongShop/config"
 	"mongShop/global"
 	"mongShop/model"
 	"mongShop/model/request"
@@ -47,12 +48,12 @@ func JWTAuth() gin.HandlerFunc {
 			c.Abort()
 		}
 		if claims.ExpiresAt-time.Now().Unix() < claims.BufferTime {
-			claims.ExpiresAt = time.Now().Unix() + global.GVA_CONFIG.JWT.ExpiresTime
+			claims.ExpiresAt = time.Now().Unix() + config.GVA_CONFIG.JWT.ExpiresTime
 			newToken, _ := j.CreateTokenByOldToken(token, *claims)
 			newClaims, _ := j.ParseToken(newToken)
 			c.Header("new-token", newToken)
 			c.Header("new-expires-at", strconv.FormatInt(newClaims.ExpiresAt, 10))
-			if global.GVA_CONFIG.System.UseMultipoint {
+			if config.GVA_CONFIG.System.UseMultipoint {
 				err, RedisJwtToken := service.GetRedisJWT(newClaims.Username)
 				if err != nil {
 					global.GVA_LOG.Error("get redis jwt failed", zap.Any("err", err))
@@ -81,7 +82,7 @@ var (
 
 func NewJWT() *JWT {
 	return &JWT{
-		[]byte(global.GVA_CONFIG.JWT.SigningKey),
+		[]byte(config.GVA_CONFIG.JWT.SigningKey),
 	}
 }
 
